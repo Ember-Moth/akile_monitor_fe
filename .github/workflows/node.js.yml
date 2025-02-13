@@ -1,11 +1,7 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:  # 仅允许手动触发
 
 jobs:
   build:
@@ -14,8 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [22.x]  # 仅保留 22.x
 
     steps:
     - uses: actions/checkout@v4
@@ -28,7 +23,7 @@ jobs:
     - run: npm run build --if-present
 
     - name: Upload build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: akile_monitor_fe
         path: dist/ # Replace with your actual binary file name
